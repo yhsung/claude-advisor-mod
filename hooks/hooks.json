@@ -1,0 +1,36 @@
+{
+  "description": "Claude Advisor Mod Watchdog Hooks",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hooks/cli-hook.js\" UserPromptSubmit"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hooks/cli-hook.js\" PostToolUse"
+          }
+        ],
+        "matcher": "Bash|Edit|Write|MultiEdit"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hooks/cli-hook.js\" Stop"
+          }
+        ]
+      }
+    ]
+  }
+}
