@@ -1,0 +1,1 @@
+{"version":3,"file":"diff-extractor.d.ts","sourceRoot":"","sources":["../../src/pruner/diff-extractor.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,WAAW;IAC1B,GAAG,CAAC,EAAE,MAAM,CAAC;IACb,QAAQ,CAAC,EAAE,MAAM,CAAC;CACnB;AAED;;GAEG;AACH,wBAAgB,cAAc,CAAC,OAAO,GAAE,WAAgB,GAAG,MAAM,CAyBhE"}

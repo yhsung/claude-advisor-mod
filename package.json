@@ -1,0 +1,41 @@
+{
+  "name": "claude-advisor-mod",
+  "version": "0.1.0",
+  "description": "Dual-model advisor mod for Claude Code inspired by omp.sh and Claude Code advisor pattern",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "claude-advisor-mcp": "dist/mcp/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "start:mcp": "node dist/mcp/cli.js"
+  },
+  "keywords": [
+    "claude-code",
+    "claude-mods",
+    "advisor",
+    "watchdog",
+    "multi-agent",
+    "mcp"
+  ],
+  "author": "claude-advisor-mod contributors",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@google/genai": "^2.32.0",
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "openai": "^4.86.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}

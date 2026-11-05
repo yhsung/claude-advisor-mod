@@ -8,7 +8,7 @@
 
 | 序號 | 依據報告 (Report) | 執行計畫 (Plan) | 生命週期狀態 | 進度 (%) | 負責/狀態說明 |
 | :---: | :--- | :--- | :---: | :---: | :--- |
-| **001** | [001-advisor-model-architecture-analysis.md](reports/001-advisor-model-architecture-analysis.md) | [001-claude-advisor-mod-architecture.md](plans/001-claude-advisor-mod-architecture.md) | **狀態 2 (推進中子計畫)** | 25% | 完成架構調研與完整 7 階段開發規劃，準備啟動專案骨架與套件實作 |
+| **001** | [001-advisor-model-architecture-analysis.md](reports/001-advisor-model-architecture-analysis.md) | [001-claude-advisor-mod-architecture.md](plans/001-claude-advisor-mod-architecture.md) | **狀態 3 (已結案閉環子計畫)** | 100% | 完成專案骨架、多後端適配器、上下文剪枝器、門禁判定器、MCP Server 與 Vitest 測試（28/28 全綠） |
 
 *生命週期狀態定義*：
 - **狀態 1**：調研與決策參考（有 report $\to$ 無 plan $\to$ 無 plan 連結）。
@@ -34,22 +34,22 @@
   - [x] 調研 `karanb192/awesome-claude-code-mods` 與現有 mod（如 `compact-adviser`）架構。
   - [x] 產出調研分析報告 `reports/001-advisor-model-architecture-analysis.md`。
   - [x] 產出架構推進計畫 `plans/001-claude-advisor-mod-architecture.md`。
-- [ ] **階段 1：專案骨架與基礎設施 (Phase 1)**
-  - [ ] 初始化 `package.json`、`tsconfig.json`、`.claude-plugin/plugin.json`。
-  - [ ] 實作設定管理器 `src/config.ts` 與型別定義 `src/types.ts`。
-- [ ] **階段 2：多後端模型適配器 (Phase 2)**
-  - [ ] 實作統一介面 `AdvisorProvider`。
-  - [ ] 實作 Anthropic、OpenAI、Gemini 與 本地 MLX/OpenAI-compatible 適配器。
-- [ ] **階段 3：上下文剪枝與變更擷取器 (Phase 3)**
-  - [ ] 實作 `src/pruner/context-pruner.ts`。
-  - [ ] 實作 `src/pruner/diff-extractor.ts`。
-  - [ ] 制定結構化 Prompt 與 JSON Schema。
-- [ ] **階段 4：門禁判定邏輯 (Phase 4)**
-  - [ ] 實作 Planning Gate、Error Loop Gate、Pre-Finish Gate。
-- [ ] **階段 5：Function Hooks 與 MCP Tool (Phase 5)**
-  - [ ] 註冊 Claude Code Function Hooks。
-  - [ ] 實作內建 MCP Server 與 `consult_advisor` 工具。
-- [ ] **階段 6：CLI 斜線指令與終端狀態 (Phase 6)**
-  - [ ] 實作 `/advisor status|mode|toggle|model` 指令。
-- [ ] **階段 7：測試與驗證 (Phase 7)**
-  - [ ] 單元測試與整合驗證，更新文件並達成閉環（狀態 3）。
+- [x] **階段 1：專案骨架與基礎設施 (Phase 1)**
+  - [x] 初始化 `package.json`、`tsconfig.json`、`.claude-plugin/plugin.json`。
+  - [x] 實作設定管理器 `src/config.ts` 與型別定義 `src/types.ts`。
+- [x] **階段 2：多後端模型適配器 (Phase 2)**
+  - [x] 實作統一介面 `AdvisorProvider`。
+  - [x] 實作 Anthropic、OpenAI、Gemini 與 本地 MLX/OpenAI-compatible 適配器。
+- [x] **階段 3：上下文剪枝與變更擷取器 (Phase 3)**
+  - [x] 實作 `src/pruner/context-pruner.ts`。
+  - [x] 實作 `src/pruner/diff-extractor.ts`。
+  - [x] 制定結構化 Prompt 與 JSON Schema。
+- [x] **階段 4：門禁判定邏輯 (Phase 4)**
+  - [x] 實作 Planning Gate、Error Loop Gate、Pre-Finish Gate。
+- [x] **階段 5：Function Hooks 與 MCP Tool (Phase 5)**
+  - [x] 註冊 Claude Code Function Hooks。
+  - [x] 實作內建 MCP Server 與 `consult_advisor` 工具。
+- [x] **階段 6：CLI 斜線指令與終端狀態 (Phase 6)**
+  - [x] 實作 `/advisor status|mode|toggle|model` 指令。
+- [x] **階段 7：測試與驗證 (Phase 7)**
+  - [x] 單元測試與整合驗證，測試全綠（28/28 tests passed），更新文件並達成閉環（狀態 3）。

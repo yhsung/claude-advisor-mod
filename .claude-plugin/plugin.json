@@ -1,0 +1,24 @@
+{
+  "name": "claude-advisor-mod",
+  "version": "0.1.0",
+  "description": "Dual-model advisor and watchdog for Claude Code, integrating omp.sh watchdog mechanics and Claude Code gated review.",
+  "entrypoint": "dist/index.js",
+  "mcpServers": {
+    "advisor": {
+      "command": "node",
+      "args": ["${pluginDir}/dist/mcp/cli.js"]
+    }
+  },
+  "hooks": {
+    "PrePrompt": "dist/index.js:onPrePrompt",
+    "PostToolUse": "dist/index.js:onPostToolUse",
+    "Stop": "dist/index.js:onStop"
+  },
+  "commands": [
+    {
+      "name": "advisor",
+      "description": "Control advisor settings, mode, and inspection status",
+      "handler": "dist/index.js:onAdvisorCommand"
+    }
+  ]
+}

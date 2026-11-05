@@ -77,42 +77,42 @@ claude-advisor-mod/
 ## 3. 開發分期與實施階段 (Implementation Phases)
 
 ### 階段 1：專案骨架與設定系統建立 (Foundations & Config)
-- [ ] 建立 `package.json`（相依：`typescript`, `@modelcontextprotocol/sdk`, `@anthropic-ai/sdk`, `openai`, `zod`, `vitest`）。
-- [ ] 撰寫 `.claude-plugin/plugin.json`，配置 hook 監聽點與 MCP server 啟動命令。
-- [ ] 實作 `src/config.ts`：支援透過全域設定檔（`~/.claude/advisor.json`）或環境變數（`ADVISOR_MODEL`, `ADVISOR_MODE`, `ADVISOR_PROVIDER`）動態載入。
+- [x] 建立 `package.json`（相依：`typescript`, `@modelcontextprotocol/sdk`, `@anthropic-ai/sdk`, `openai`, `@google/genai`, `zod`, `vitest`）。
+- [x] 撰寫 `.claude-plugin/plugin.json`，配置 hook 監聽點與 MCP server 啟動命令。
+- [x] 實作 `src/config.ts`：支援透過全域設定檔（`~/.claude/advisor.json`）或環境變數（`ADVISOR_MODEL`, `ADVISOR_MODE`, `ADVISOR_PROVIDER`）動態載入。
 
 ### 階段 2：多後端模型適配器 (Multi-Provider Engine)
-- [ ] 定義統一介面 `AdvisorProvider`（包含 `evaluate(prompt, context)`）。
-- [ ] 實作 Anthropic、OpenAI、Gemini 適配器。
-- [ ] 實作本機 MLX / OpenAI-compatible 適配器（支援針對 Apple Silicon 本機 `http://localhost:8080/v1` 的零網路呼叫）。
-- [ ] 實作重試與 Fallback 機制（若 Advisor 失敗，靜默放行而不中斷主代理流程）。
+- [x] 定義統一介面 `AdvisorProvider`（包含 `evaluate(prompt, context)`）。
+- [x] 實作 Anthropic、OpenAI、Gemini 適配器。
+- [x] 實作本機 MLX / OpenAI-compatible 適配器（支援針對 Apple Silicon 本機 `http://localhost:8080/v1` 的零網路呼叫）。
+- [x] 實作重試與 Fallback 機制（若 Advisor 失敗，靜默放行而不中斷主代理流程）。
 
 ### 階段 3：上下文剪枝與 Git Diff 擷取器 (Context Pruner)
-- [ ] 實作 `context-pruner.ts`：過濾肥大的 base64、二進制、龐大測試 log，只保留錯誤訊息堆疊（stack traces）與摘要。
-- [ ] 實作 `diff-extractor.ts`：執行輕量 `git diff --staged` 或 `git status` 抓取現階段關鍵代碼異動。
-- [ ] 制定結構化 Prompt 樣板（引導 Advisor 輸出嚴格 JSON：`verdict`, `score`, `critique`, `blocker`）。
+- [x] 實作 `context-pruner.ts`：過濾肥大的 base64、二進制、龐大測試 log，只保留錯誤訊息堆疊（stack traces）與摘要。
+- [x] 實作 `diff-extractor.ts`：執行輕量 `git diff --staged` 或 `git status` 抓取現階段關鍵代碼異動。
+- [x] 制定結構化 Prompt 樣板（引導 Advisor 輸出嚴格 JSON：`verdict`, `score`, `critique`, `blocker`）。
 
 ### 階段 4：門禁判定邏輯 (Trigger Gates)
-- [ ] **Planning Gate**：檢測使用者 prompt 複雜度，若為多檔案重構或關鍵決策，啟動 Advisor 檢驗架構考量。
-- [ ] **Error Loop Gate**：追蹤最近執行的 tool 結果，若相同 command 或同模組報錯累計 $\ge 2$ 次，強制觸發診斷建議。
-- [ ] **Pre-Finish Gate**：攔截 `Stop` 事件或 `git commit`，進行上游需求與最終 diff 的符合度審查。
+- [x] **Planning Gate**：檢測使用者 prompt 複雜度，若為多檔案重構或關鍵決策，啟動 Advisor 檢驗架構考量。
+- [x] **Error Loop Gate**：追蹤最近執行的 tool 結果，若相同 command 或同模組報錯累計 $\ge 2$ 次，強制觸發診斷建議。
+- [x] **Pre-Finish Gate**：攔截 `Stop` 事件或 `git commit`，進行上游需求與最終 diff 的符合度審查。
 
 ### 階段 5：Function Hooks 與 MCP Tool 雙向整合
-- [ ] 在 `src/index.ts` 註冊 Claude Code Function Hooks（`PrePrompt`, `PostToolUse`, `Stop`）。
-- [ ] 實作 MCP Tool `consult_advisor`，供主代理自願向高階模型發起架構諮詢。
-- [ ] 實作不同介入等級的反饋：
+- [x] 在 `src/index.ts` 註冊 Claude Code Function Hooks（`PrePrompt`, `PostToolUse`, `Stop`）。
+- [x] 實作 MCP Tool `consult_advisor`，供主代理自願向高階模型發起架構諮詢。
+- [x] 實作不同介入等級的反饋：
   - `advisory`：僅以提示（hint）附加於次輪對話。
   - `balanced`：顯著警告（warning），由主代理決定是否遵循。
   - `strict`：發出 blocker，中斷執行並要求主代理重新評估。
 
 ### 階段 6：CLI 斜線指令與終端狀態呈現
-- [ ] 實作 `/advisor` 指令（`/advisor status`, `/advisor mode`, `/advisor toggle`, `/advisor set-model`）。
-- [ ] 終端提示列整合（若 host 支援，顯示 Advisor 當前監控狀態）。
+- [x] 實作 `/advisor` 指令（`/advisor status`, `/advisor mode`, `/advisor toggle`, `/advisor set-model`）。
+- [x] 終端提示列整合（若 host 支援，顯示 Advisor 當前監控狀態）。
 
 ### 階段 7：全面驗證與測試落盤
-- [ ] 撰寫單元測試（包含 Mock 模型回應、上下文裁剪邊界條件）。
-- [ ] 本地測試：透過 Claude Code 載入本地插件進行端到端情境驗證（觸發報錯循環、主動詢問工具）。
-- [ ] 同步更新 `README.md`、`AGENTS.md` 與 `PLAN.md`。
+- [x] 撰寫單元測試（包含 Mock 模型回應、上下文裁剪邊界條件）。
+- [x] 本地測試：透過 Claude Code 載入本地插件進行端到端情境驗證（觸發報錯循環、主動詢問工具）。
+- [x] 同步更新 `README.md`、`AGENTS.md` 與 `PLAN.md`。
 
 ---
 
