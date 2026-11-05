@@ -81,6 +81,10 @@ export function register(on: (event: string, handler: (...args: any[]) => any) =
   on('Command:advisor', async (args: string[]) => {
     return onAdvisorCommand(args);
   });
+
+  on('Command:advisor-mod', async (args: string[]) => {
+    return onAdvisorCommand(args);
+  });
 }
 
 export default {

@@ -46,13 +46,18 @@ claude --plugin-dir /Volumes/Samsung970EVOPlus/dev-projects/claude-advisor-mod
 
 可以在 Claude Code 終端對話中隨時控制 Advisor 行為：
 
-- `/advisor status`：檢視目前運行模式、後端模型、門禁開啟狀態與 Token 消耗度量。
+- `/advisor status` 或 `/advisor-mod status`：檢視目前運行模式、後端模型、門禁開啟狀態與 Token 消耗度量。
+- `/advisor model` 或 `/advisor-mod model`：列出互動式模型選單與預設預裝模型（支援編號 1~8 快速切換或自訂名稱）：
+  - `[1]` Claude 3.7 Sonnet (Anthropic)
+  - `[2]` Claude 3 Opus (Anthropic)
+  - `[3]` GPT-4o (OpenAI)
+  - `[4]` o3-mini (OpenAI Reasoning)
+  - `[5]` Gemini 2.5 Pro (Google)
+  - `[6]` Gemini 2.5 Flash (Google)
+  - `[7]` Qwen 2.5 Coder 32B (Apple Silicon 本機 MLX)
+  - `[8]` DeepSeek R1 Distill 32B (Apple Silicon 本機 MLX)
+- `/advisor model <1-8|model-name>`：切換指定顧問模型（自動配對 Provider）。
 - `/advisor mode <advisory|balanced|strict|disabled>`：設定介入嚴格度。
-  - `advisory`：僅以提示（hint）注入次輪對話。
-  - `balanced`（預設）：出現潛在問題時給出明顯 Warning 建議。
-  - `strict`：遇到嚴重架構錯誤或硬編碼金鑰時發出 Blocker 並中斷執行。
-- `/advisor provider <anthropic|openai|gemini|local-mlx>`：切換模型提供商。
-- `/advisor model <model-name>`：切換指定模型。
 - `/advisor toggle`：快速切換開啟/關閉。
 - `/advisor test [query]`：立即發起 Advisor 連線與診斷測試。
 - `/advisor reset`：重設當前工作階段的錯誤計數與呼叫計數。

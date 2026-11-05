@@ -61,6 +61,9 @@ export function register(on) {
     on('Command:advisor', async (args) => {
         return onAdvisorCommand(args);
     });
+    on('Command:advisor-mod', async (args) => {
+        return onAdvisorCommand(args);
+    });
 }
 export default {
     onPrePrompt,

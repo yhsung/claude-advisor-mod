@@ -36,11 +36,39 @@ describe('Advisor Commands', () => {
     expect(config.provider).toBe('local-mlx');
   });
 
-  it('handles /advisor model update', async () => {
-    const output = await handleAdvisorCommand(['model', 'custom-test-model']);
-    expect(output).toContain('custom-test-model');
+  it('handles /advisor model without args to show selector menu', async () => {
+    const output = await handleAdvisorCommand(['model']);
+    expect(output).toContain('[Claude Advisor Model Selector]');
+    expect(output).toContain('[1] Claude 3.7 Sonnet');
+    expect(output).toContain('[2] Claude 3 Opus');
+    expect(output).toContain('[7] Qwen 2.5 Coder 32B (MLX)');
+  });
+
+  it('handles /advisor model with number to switch preset', async () => {
+    const output = await handleAdvisorCommand(['model', '2']);
+    expect(output).toContain('Claude 3 Opus');
+    expect(output).toContain('claude-3-opus-20240229');
 
     const config = loadConfig();
-    expect(config.model).toBe('custom-test-model');
+    expect(config.model).toBe('claude-3-opus-20240229');
+    expect(config.provider).toBe('anthropic');
+  });
+
+  it('handles /advisor model with MLX preset number', async () => {
+    const output = await handleAdvisorCommand(['model', '7']);
+    expect(output).toContain('Qwen 2.5 Coder 32B (MLX)');
+
+    const config = loadConfig();
+    expect(config.model).toBe('mlx-community/Qwen2.5-Coder-32B-Instruct-4bit');
+    expect(config.provider).toBe('local-mlx');
+  });
+
+  it('handles /advisor model custom name with inferred provider', async () => {
+    const output = await handleAdvisorCommand(['model', 'gpt-4o']);
+    expect(output).toContain('gpt-4o');
+
+    const config = loadConfig();
+    expect(config.model).toBe('gpt-4o');
+    expect(config.provider).toBe('openai');
   });
 });
