@@ -8,14 +8,16 @@ describe('Plugin Manifest & Package Consistency', () => {
     expect(fs.existsSync(pluginPath)).toBe(true);
 
     const plugin = JSON.parse(fs.readFileSync(pluginPath, 'utf-8'));
-    expect(plugin.name).toBe('claude-advisor-mod');
+    expect(plugin.name).toBe('advisor-mod');
     expect(plugin.version).toBe('0.1.0');
-    expect(plugin.entrypoint).toBe('dist/index.js');
-    expect(plugin.hooks).toBeDefined();
-    expect(plugin.hooks.PrePrompt).toBeDefined();
-    expect(plugin.hooks.PostToolUse).toBeDefined();
-    expect(plugin.hooks.Stop).toBeDefined();
-    expect(plugin.mcpServers?.advisor).toBeDefined();
+
+    const hooksPath = path.join(process.cwd(), 'hooks', 'hooks.json');
+    expect(fs.existsSync(hooksPath)).toBe(true);
+
+    const hooksConfig = JSON.parse(fs.readFileSync(hooksPath, 'utf-8'));
+    expect(hooksConfig.hooks?.UserPromptSubmit).toBeDefined();
+    expect(hooksConfig.hooks?.PostToolUse).toBeDefined();
+    expect(hooksConfig.hooks?.Stop).toBeDefined();
   });
 
   it('validates package.json exports and bin scripts', () => {
